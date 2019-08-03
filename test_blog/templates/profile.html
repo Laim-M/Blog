@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div><h3>Ваш профиль</h3></div><br>
+
+    <nav class="nav">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">{{ following|length }} Following</a>
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">{{ follower|length }} Follower</a>
+    </nav>
+
+    <br><br><a href="{% url 'create_post' %}" class="top-menu">Create post</a><br>
+
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
+                {{ post.published_date }}
+            </div>
+            <h1>
+                {{ post.title }}
+            </h1>
+            <p>
+                {{ post.text|linebreaksbr }}
+            </p>
+            </div>
+        <hr>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+
+{% load i18n %}
+
+{% block head_title %} {% trans "Другой пользователь" %} {% endblock %}
+
+{% block content %}
+
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1">{{ author }}</span>
+    </nav>
+
+    <nav class="nav">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">{{ following|length }} Following</a>
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">{{ follower|length }} Follower</a>
+        <form action="/follow" method="post"">
+            {% csrf_token %}
+            <input type="hidden" name="follow" value="{{ author.id }}">
+            <input type="submit" value="Follow" style="border-radius: 5px;background-color:lightskyblue;border: 0px solid #000000">
+        </form>
+    </nav>
+
+    <div><h3>Публикации этого пользователя</h3></div>
+
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
+                {{ post.published_date }}
+            </div>
+            <h1>
+                {{ post.title }}
+            </h1>
+            <p>
+                {{ post.text|linebreaksbr }}
+            </p>
+            </div>
+        <hr>
+    {% endfor %}
+
+{% endblock %}
